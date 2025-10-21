@@ -23,7 +23,7 @@ module "rg1" {
 module "acr" {
   depends_on = [module.rg]
   source     = "../../modules/azurerm_container_registry"
-  acr_name   = "acrdevtodoapp"
+  acr_name   = "acrdevtodoapprandhir"
   rg_name    = "rg-dev-todoapp"
   location   = "centralindia"
   tags       = local.common_tags
