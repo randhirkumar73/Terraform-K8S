@@ -19,6 +19,7 @@ jobs:
           client-id: 45b430b1-0ab7-4e43-8d90-40d072061167
           tenant-id: 0b68d19e-265a-4d10-b135-3b97893bffac
           subscription-id: f6fba721-6f67-4a5f-9be2-783475475687
+          auth-type: oidc
             
       - name: Terraform fmt
         id: fmt
