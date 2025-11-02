@@ -13,30 +13,40 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v5.0.0
     
-      - name: Azure Login
-        uses: Azure/login@v2.3.0
-        with:
-          client-id: 45b430b1-0ab7-4e43-8d90-40d072061167
-          tenant-id: 0b68d19e-265a-4d10-b135-3b97893bffac
-          subscription-id: f6fba721-6f67-4a5f-9be2-783475475687
+      
           
-            
+          
       - name: Terraform fmt
         id: fmt
         run: terraform fmt -check
         continue-on-error: true
         working-directory: environments/dev
+        env:
+          ARM_CLIENT_ID: 45b430b1-0ab7-4e43-8d90-40d072061167
+          ARM_TENANT_ID: 0b68d19e-265a-4d10-b135-3b97893bffac
+          ARM_SUBSCRIPTION_ID: f6fba721-6f67-4a5f-9be2-783475475687
+          ARM_USE_OIDC: true
     
         
       - name: Terraform Init
         id: init
         run: terraform init -input=false  
         working-directory: environments/dev
+        env:
+          ARM_CLIENT_ID: 45b430b1-0ab7-4e43-8d90-40d072061167
+          ARM_TENANT_ID: 0b68d19e-265a-4d10-b135-3b97893bffac
+          ARM_SUBSCRIPTION_ID: f6fba721-6f67-4a5f-9be2-783475475687
+          ARM_USE_OIDC: true
 
       - name: Terraform Validate
         id: validate
         run: terraform validate -no-color
         working-directory: environments/dev
+        env:
+          ARM_CLIENT_ID: 45b430b1-0ab7-4e43-8d90-40d072061167
+          ARM_TENANT_ID: 0b68d19e-265a-4d10-b135-3b97893bffac
+          ARM_SUBSCRIPTION_ID: f6fba721-6f67-4a5f-9be2-783475475687
+          ARM_USE_OIDC: true
                
       
       - name: Terraform Plan
@@ -44,6 +54,11 @@ jobs:
         run: terraform plan -no-color -input=false
         continue-on-error: true
         working-directory: environments/dev
+        env:
+          ARM_CLIENT_ID: 45b430b1-0ab7-4e43-8d90-40d072061167
+          ARM_TENANT_ID: 0b68d19e-265a-4d10-b135-3b97893bffac
+          ARM_SUBSCRIPTION_ID: f6fba721-6f67-4a5f-9be2-783475475687
+          ARM_USE_OIDC: true
         
         
   terraform-apply:    
@@ -54,17 +69,17 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v5.0.0
     
-      - name: Azure Login
-        uses: Azure/login@v2.3.0
-        with:
-          client-id: 45b430b1-0ab7-4e43-8d90-40d072061167
-          tenant-id: 0b68d19e-265a-4d10-b135-3b97893bffac
-          subscription-id: f6fba721-6f67-4a5f-9be2-783475475687  
+  
           
       - name: Terraform Init
         id: init
         run: terraform init -input=false  
         working-directory: environments/dev
+        env:
+          ARM_CLIENT_ID: 45b430b1-0ab7-4e43-8d90-40d072061167
+          ARM_TENANT_ID: 0b68d19e-265a-4d10-b135-3b97893bffac
+          ARM_SUBSCRIPTION_ID: f6fba721-6f67-4a5f-9be2-783475475687
+          ARM_USE_OIDC: true
         
 
       - name: Terraform Apply
@@ -72,4 +87,9 @@ jobs:
         run: terraform apply --auto-approve
         continue-on-error: true
         working-directory: environments/dev
+        env:
+          ARM_CLIENT_ID: 45b430b1-0ab7-4e43-8d90-40d072061167
+          ARM_TENANT_ID: 0b68d19e-265a-4d10-b135-3b97893bffac
+          ARM_SUBSCRIPTION_ID: f6fba721-6f67-4a5f-9be2-783475475687
+          ARM_USE_OIDC: true
         
